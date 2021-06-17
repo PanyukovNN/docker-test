@@ -1,0 +1,29 @@
+version: "3"
+
+volumes:
+  postgres_volume: - том
+
+services:
+  youtube_statistic:
+    build: StatisticManager/ - собрать проект из папки
+    restart: always - всегда перезапускать если что-то пошло не так
+    environment: - переменные
+      - TZ=Europe/Moscow
+      - POSTGRESDB_ADDR=postgresdb
+      - POSTGRESDB_PORT=5432
+
+  web_service:
+    build: WebService/
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - TZ=Europe/Moscow
+      - POSTGRESDB_ADDR=postgresdb
+      - POSTGRESDB_PORT=5432
+
+  postgresdb: - не указываю порт, поскольку данный контейнер будет доступен только контейнерам внутри compose
+    image: postgres:latest - последний postgres
+    volumes:
+      - postgres_volume:/data/db - к какой папке прикрутить том, папку стоить брать из документации образа постгрес
+    restart: always

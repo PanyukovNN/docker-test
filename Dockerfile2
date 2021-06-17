@@ -1,0 +1,10 @@
+FROM maven:3.6.3-jdk-11
+
+# копируем весь проект в контейнер, включая pom.xml
+COPY /. /.
+
+# упаковываем наш проект в jar
+RUN mvn clean package
+
+# запускаем проект
+ENTRYPOINT ["java", "-jar", "/Aspen.jar"]
