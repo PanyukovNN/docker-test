@@ -1,9 +1,9 @@
-FROM openjdk:11.0.7-jdk-slim
+FROM maven:3.6.3-jdk-11
 
 WORKDIR "/home"
 
-COPY target/Dockertheory.jar /Dockertheory.jar
+COPY ./ /home/
 
-ENV TZ Europe/Moscow
+RUN mvn clean package
 
-ENTRYPOINT ["java", "-jar", "/Dockertheory.jar"]
+ENTRYPOINT ["java", "-jar", "target/Dockertest.jar"]

@@ -10,5 +10,4 @@ public class DockertestApplication {
         SpringApplication.run(DockertestApplication.class, args);
         System.out.println("started");
     }
-
 }

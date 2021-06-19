@@ -31,6 +31,24 @@
 
             background-color: white;
         }
+
+        .standard-block {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+
+            width: 700px;
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;
+
+            box-shadow: 0 0 15px 0 rgba(0,0,0,0.09);
+            padding: 21px 22px;
+            border-radius: 4px;
+
+            background-color: white;
+        }
     </style>
 </head>
 
@@ -38,9 +56,17 @@
 
 <div class="greeting-block">
     <h3 style="text-align: center">
-        Hello from docker container!
+        Hello from docker container! TEST
     </h3>
     <h5 th:text="${dateTime}"></h5>
+</div>
+
+<div class="standard-block">
+    <div class="w-100 d-flex" th:each="customer, iter : ${customers}">
+        <span>№</span><span th:text="${iter.index}"></span>
+        <span style="margin-left: 15px">Name: </span><span th:text="${customer.name}" style="margin-left: 10px"></span>
+        <span style="margin-left: auto">Uuid: </span><span th:text="${customer.uuid}" style="margin-left: 10px"></span>
+    </div>
 </div>
 
 </body>

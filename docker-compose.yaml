@@ -1,29 +1,32 @@
-version: "3"
+version: "2"
 
 volumes:
-  postgres_volume: - том
+  postgres_volume:
+
+networks:
+  app:
 
 services:
-  youtube_statistic:
-    build: StatisticManager/ - собрать проект из папки
-    restart: always - всегда перезапускать если что-то пошло не так
-    environment: - переменные
-      - TZ=Europe/Moscow
-      - POSTGRESDB_ADDR=postgresdb
-      - POSTGRESDB_PORT=5432
-
-  web_service:
-    build: WebService/
-    restart: always
-    ports:
-      - 8080:8080
-    environment:
-      - TZ=Europe/Moscow
-      - POSTGRESDB_ADDR=postgresdb
-      - POSTGRESDB_PORT=5432
-
-  postgresdb: - не указываю порт, поскольку данный контейнер будет доступен только контейнерам внутри compose
-    image: postgres:latest - последний postgres
+  db:
+    image: postgres:latest
+    container_name: db
     volumes:
-      - postgres_volume:/data/db - к какой папке прикрутить том, папку стоить брать из документации образа постгрес
-    restart: always
+      - postgres_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      PGDATA: /var/lib/postgresql/data
+
+  docker_test:
+    build: .
+    container_name: docker_test
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      TZ: Europe/Moscow

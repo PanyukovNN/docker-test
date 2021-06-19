@@ -1,0 +1,9 @@
+FROM openjdk:11.0.7-jdk-slim
+
+WORKDIR "/home"
+
+COPY target/Dockertest.jar /Dockertest.jar
+
+ENV TZ Europe/Moscow
+
+ENTRYPOINT ["java", "-jar", "/Dockertest.jar"]
