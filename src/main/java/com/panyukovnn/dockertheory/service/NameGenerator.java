@@ -1,7 +1,5 @@
 package com.panyukovnn.dockertheory.service;
 
-import org.springframework.stereotype.Service;
-
 import java.util.Calendar;
 import java.util.Random;
 
@@ -12,9 +10,7 @@ public class NameGenerator {
     private String lastGeneratedName = "";
     int length;
 
-    char[] vowels = {
-            'a', 'e', 'i', 'o', 'u'
-    };
+    char[] vowels = {'a', 'e', 'i', 'o', 'u'};
 
     public NameGenerator(int lengthOfName) {
         if (lengthOfName < 5 || lengthOfName > 10) {
@@ -26,7 +22,7 @@ public class NameGenerator {
     }
 
     public String getName() {
-        for (;;) {
+        while (true) {
             Random randomNumberGenerator = new Random(Calendar.getInstance()
                     .getTimeInMillis());
 
@@ -39,8 +35,7 @@ public class NameGenerator {
                     nameInCharArray[i] = getConsonant(randomNumberGenerator);
                 }
             }
-            nameInCharArray[0] = (char) Character
-                    .toUpperCase(nameInCharArray[0]);
+            nameInCharArray[0] = Character.toUpperCase(nameInCharArray[0]);
 
             String currentGeneratedName = new String(nameInCharArray);
 
@@ -48,9 +43,7 @@ public class NameGenerator {
                 lastGeneratedName = currentGeneratedName;
                 return currentGeneratedName;
             }
-
         }
-
     }
 
     private boolean positionIsOdd(int i) {
@@ -58,15 +51,17 @@ public class NameGenerator {
     }
 
     private char getConsonant(Random randomNumberGenerator) {
-        for (;;) {
+        while (true) {
             char currentCharacter = (char) (randomNumberGenerator
                     .nextInt(diffBetweenAtoZ) + charValueOfa);
-            if (currentCharacter == 'a' || currentCharacter == 'e'
+
+            boolean correctCharacter = currentCharacter == 'a' || currentCharacter == 'e'
                     || currentCharacter == 'i' || currentCharacter == 'o'
-                    || currentCharacter == 'u')
-                continue;
-            else
+                    || currentCharacter == 'u';
+
+            if (!correctCharacter) {
                 return currentCharacter;
+            }
         }
 
     }

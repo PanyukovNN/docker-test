@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,7 +24,6 @@ public class GreetingController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm dd.MM.yyyy");
         model.addAttribute("dateTime", formatter.format(LocalDateTime.now()));
 
-//        Stream.generate(this::saveRandomCustomer).limit(3);
         for (int i = 0; i < 1; i++) {
             saveRandomCustomer();
         }
@@ -34,11 +32,11 @@ public class GreetingController {
         return "index";
     }
 
-    private Customer saveRandomCustomer() {
+    private void saveRandomCustomer() {
         Customer newCustomer = new Customer();
         newCustomer.setName(nameGenerator.getName());
         newCustomer.setUuid(UUID.randomUUID());
 
-        return customerRepository.save(newCustomer);
+        customerRepository.save(newCustomer);
     }
 }

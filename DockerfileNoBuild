@@ -4,6 +4,4 @@ WORKDIR "/home"
 
 COPY target/Dockertest.jar /Dockertest.jar
 
-ENV TZ Europe/Moscow
-
 ENTRYPOINT ["java", "-jar", "/Dockertest.jar"]
