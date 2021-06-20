@@ -15,7 +15,7 @@
         .greeting-block {
             margin-left: auto;
             margin-right: auto;
-            margin-top: 100px;
+            margin-top: 50px;
 
             width: 500px;
             height: 160px;
@@ -55,18 +55,29 @@
 <body style="background-color: beige">
 
 <div class="greeting-block">
-    <h3 style="text-align: center">
-        Hello from docker container! TEST
+    <h3 class="w-100" style="text-align: center">
+        Customers
     </h3>
     <h5 th:text="${dateTime}"></h5>
 </div>
 
 <div class="standard-block">
-    <div class="w-100 d-flex" th:each="customer, iter : ${customers}">
-        <span>№</span><span th:text="${iter.index}"></span>
-        <span style="margin-left: 15px">Name: </span><span th:text="${customer.name}" style="margin-left: 10px"></span>
-        <span style="margin-left: auto">Uuid: </span><span th:text="${customer.uuid}" style="margin-left: 10px"></span>
-    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Uuid</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  th:each="customer, iter : ${customers}">
+            <th scope="row" th:text="${iter.index + 1}"></th>
+            <td th:text="${customer.name}">Mark</td>
+            <td th:text="${customer.uuid}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </body>

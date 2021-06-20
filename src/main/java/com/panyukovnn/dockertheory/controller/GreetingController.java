@@ -21,7 +21,7 @@ public class GreetingController {
 
     @GetMapping("/")
     public String getIndex(Model model) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm dd.MM.yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
         model.addAttribute("dateTime", formatter.format(LocalDateTime.now()));
 
         for (int i = 0; i < 1; i++) {
